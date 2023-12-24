@@ -5,23 +5,19 @@ import re
 from PIL import Image
 import requests
 
-#Je t'aime plus que les mots,
-#Plus que les sentiments,
-#Plus que la vie elle-même
-
 st.set_page_config(
     page_title="Google AI Chat",
     page_icon="https://seeklogo.com/images/G/google-ai-logo-996E85F6FD-seeklogo.com.png",
     layout="wide",
 )
 # Path: Main.py
-#Author: Sergio Demis Lopez Martinez
+#Author: Ayush Srivastava
 #------------------------------------------------------------
 #HEADER
 st.markdown('''
-Powered by Google AI <img src="https://seeklogo.com/images/G/google-ai-logo-996E85F6FD-seeklogo.com.png" width="20" height="20">
+Powered by Google Gemini <img src="https://seeklogo.com/images/G/google-ai-logo-996E85F6FD-seeklogo.com.png" width="20" height="20">
 , Streamlit and Python''', unsafe_allow_html=True)
-st.caption("By Sergio Demis Lopez Martinez")
+#st.caption("By Ayush Srivastava")
 
 #------------------------------------------------------------
 #LANGUAGE
@@ -89,7 +85,7 @@ def load_modelvision() -> genai.GenerativeModel:
 
 #------------------------------------------------------------
 #CONFIGURATION
-genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
+genai.configure(api_key=st.secrets["AIzaSyDPmESo2KnOfzFn8ugF9KfN9oULL75sL_Y"])
 
 model = load_model()
 
@@ -112,9 +108,9 @@ if 'messages' not in st.session_state:
 if 'welcome' not in st.session_state or lang != st.session_state.lang:
     st.session_state.lang = lang
     welcome  = model.generate_content(f'''
-    Da un saludo de bienvenida al usuario y sugiere que puede hacer
-    (Puedes describir imágenes, responder preguntas, leer archivos texto, leer tablas,generar gráficos con graphviz, etc)
-    eres un chatbot en una aplicación de chat creada en streamlit y python. generate the answer in {lang}''')
+    Het begroet de gebruiker en stelt voor wat hij/zij kan doen.
+    (Je kunt afbeeldingen beschrijven, vragen beantwoorden, tekstbestanden en tabellen lezen).
+    je bent een chatbot in een chatapplicatie gemaakt in streamlit en python. generate the answer in {lang}''')
     welcome.resolve()
     st.session_state.welcome = welcome
 
@@ -155,30 +151,30 @@ if len(st.session_state.chat_session) > 0:
 cols=st.columns(4)
 
 with cols[0]:
-    if lang == 'Español':
-      image_atachment = st.toggle("Adjuntar imagen", value=False, help="Activa este modo para adjuntar una imagen y que el chatbot pueda leerla")
+    if lang == 'Nederlands':
+      image_atachment = st.toggle("Afbeelding bijvoegen", value=False, help="Activeer deze modus om een afbeelding bij te voegen en laat de chatbot deze lezen")
     else:
       image_atachment = st.toggle("Attach image", value=False, help="Activate this mode to attach an image and let the chatbot read it")
 
 with cols[1]:
-    if lang == 'Español':
-      txt_atachment = st.toggle("Adjuntar archivo de texto", value=False, help="Activa este modo para adjuntar un archivo de texto y que el chatbot pueda leerlo")
+    if lang == 'Nederlands':
+      txt_atachment = st.toggle("Tekstbestand bijvoegen", value=False, help="Activeer deze modus om een tekstbestand bij te voegen en laat de chatbot het lezen")
     else:
       txt_atachment = st.toggle("Attach text file", value=False, help="Activate this mode to attach a text file and let the chatbot read it")
 with cols[2]:
-    if lang == 'Español':
-      csv_excel_atachment = st.toggle("Adjuntar CSV o Excel", value=False, help="Activa este modo para adjuntar un archivo CSV o Excel y que el chatbot pueda leerlo")
+    if lang == 'Nederlands':
+      csv_excel_atachment = st.toggle("CSV of Excel bijvoegen", value=False, help="Activeer deze modus om een CSV- of Excel-bestand bij te voegen en laat de chatbot het lezen")
     else:
       csv_excel_atachment = st.toggle("Attach CSV or Excel", value=False, help="Activate this mode to attach a CSV or Excel file and let the chatbot read it")
-with cols[3]:
+"""with cols[3]:
     if lang == 'Español':
       graphviz_mode = st.toggle("Modo graphviz", value=False, help="Activa este modo para generar un grafo con graphviz en .dot a partir de tu mensaje")
     else:
-      graphviz_mode = st.toggle("Graphviz mode", value=False, help="Activate this mode to generate a graph with graphviz in .dot from your message")
+      graphviz_mode = st.toggle("Graphviz mode", value=False, help="Activate this mode to generate a graph with graphviz in .dot from your message")"""
 if image_atachment:
-    if lang == 'Español':
-      image = st.file_uploader("Sube tu imagen", type=['png', 'jpg', 'jpeg'])
-      url = st.text_input("O pega la url de tu imagen")
+    if lang == 'Nederlands':
+      image = st.file_uploader("Upload je afbeelding", type=['png', 'jpg', 'jpeg'])
+      url = st.text_input("Of plak je afbeeldings url")
     else:
       image = st.file_uploader("Upload your image", type=['png', 'jpg', 'jpeg'])
       url = st.text_input("Or paste your image url")
@@ -189,22 +185,22 @@ else:
 
 
 if txt_atachment:
-    if lang == 'Español':
-      txtattachment = st.file_uploader("Sube tu archivo de texto", type=['txt'])
+    if lang == 'Nederlands':
+      txtattachment = st.file_uploader("Upload uw tekstbestand", type=['txt'])
     else:
       txtattachment = st.file_uploader("Upload your text file", type=['txt'])
 else:
     txtattachment = None
 
 if csv_excel_atachment:
-    if lang == 'Español':
-      csvexcelattachment = st.file_uploader("Sube tu archivo CSV o Excel", type=['csv', 'xlsx'])
+    if lang == 'Nederlands':
+      csvexcelattachment = st.file_uploader("CSV- of Excel-bestand uploaden", type=['csv', 'xlsx'])
     else:
       csvexcelattachment = st.file_uploader("Upload your CSV or Excel file", type=['csv', 'xlsx'])
 else:
     csvexcelattachment = None
-if lang == 'Español':
-  prompt = st.chat_input("Escribe tu mensaje")
+if lang == 'Nederlands':
+  prompt = st.chat_input("Schrijf je bericht")
 else:
   prompt = st.chat_input("Write your message")
 
@@ -212,8 +208,8 @@ if prompt:
     txt = ''
     if txtattachment:
         txt = txtattachment.getvalue().decode("utf-8")
-        if lang == 'Español':
-          txt = '   Archivo de texto: \n' + txt
+        if lang == 'Nederlands':
+          txt = '   Tekst bestand:: \n' + txt
         else:
           txt = '   Text file: \n' + txt
 
@@ -224,11 +220,11 @@ if prompt:
             df = pd.read_excel(csvexcelattachment)
         txt += '   Dataframe: \n' + str(df)
 
-    if graphviz_mode:
-        if lang == 'Español':
-          txt += '   Genera un grafo con graphviz en .dot \n'
+    """if graphviz_mode:
+        if lang == 'Nederlands':
+          txt += '   Genereer een grafiek met graphviz in .dot \n'
         else:
-          txt += '   Generate a graph with graphviz in .dot \n'
+          txt += '   Generate a graph with graphviz in .dot \n' """
 
     if len(txt) > 5000:
         txt = txt[:5000] + '...'
@@ -243,10 +239,10 @@ if prompt:
 
     append_message(prmt)
 
-    if lang == 'Español':
-      spinertxt = 'Espera un momento, estoy pensando...'
+    if lang == 'Nederlands':
+      spinertxt = 'Wacht even, ik denk...'
     else:
-      spinertxt = 'Wait a moment, I am thinking...'
+      spinertxt = 'Please wait a moment, I am thinking...'
     with st.spinner(spinertxt):
         if len(prmt['parts']) > 1:
             response = vision.generate_content(prmt['parts'],stream=True,safety_settings=[
@@ -271,7 +267,5 @@ if prompt:
 
 
         st.rerun()
-
-
 
 #st.session_state.chat_session
