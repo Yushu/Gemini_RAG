@@ -131,8 +131,8 @@ if len(st.session_state.chat_session) > 0:
                 if len(graphs) > 0:
                     for graph in graphs:
                         st.graphviz_chart(graph,use_container_width=False)
-                        if lang == 'Español':
-                          view = "Ver texto"
+                        if lang == 'Nederlands':
+                          view = "Tekst bekijken"
                         else:
                           view = "View text"
                         with st.expander(view):
@@ -245,7 +245,9 @@ if prompt:
         },
     ]
 )
-            response.resolve()
+            
+            to_markdown(response.text)
+            #response.resolve()
         else:
             response = st.session_state.chat.send_message(prmt['parts'][0])
 
