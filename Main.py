@@ -6,7 +6,7 @@ from PIL import Image
 import requests
 
 st.set_page_config(
-    page_title="Google AI Chat",
+    page_title="Google Gemini RAG Chatbot",
     page_icon="https://seeklogo.com/images/G/google-ai-logo-996E85F6FD-seeklogo.com.png",
     layout="wide",
 )
