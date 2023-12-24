@@ -29,7 +29,7 @@ with langcols[0]:
   'Русский', '日本語', '한국어', '中文', 'العربية',
   'हिन्दी', 'Türkçe', 'Tiếng Việt', 'Bahasa Indonesia',
   'ภาษาไทย', 'Română', 'Ελληνικά', 'Magyar', 'Čeština',
-  'Svenska', 'Norsk', 'Suomi', 'Dansk', 'हिन्दी', 'हिन्�'),index=1)
+  'Svenska', 'Norsk', 'Suomi', 'Dansk', 'हिन्दी', 'हिन्�'),index=0)
 
 if 'lang' not in st.session_state:
     st.session_state.lang = lang
@@ -166,11 +166,6 @@ with cols[2]:
       csv_excel_atachment = st.toggle("CSV of Excel bijvoegen", value=False, help="Activeer deze modus om een CSV- of Excel-bestand bij te voegen en laat de chatbot het lezen")
     else:
       csv_excel_atachment = st.toggle("Attach CSV or Excel", value=False, help="Activate this mode to attach a CSV or Excel file and let the chatbot read it")
-"""with cols[3]:
-    if lang == 'Español':
-      graphviz_mode = st.toggle("Modo graphviz", value=False, help="Activa este modo para generar un grafo con graphviz en .dot a partir de tu mensaje")
-    else:
-      graphviz_mode = st.toggle("Graphviz mode", value=False, help="Activate this mode to generate a graph with graphviz in .dot from your message")"""
 if image_atachment:
     if lang == 'Nederlands':
       image = st.file_uploader("Upload je afbeelding", type=['png', 'jpg', 'jpeg'])
