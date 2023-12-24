@@ -215,12 +215,6 @@ if prompt:
             df = pd.read_excel(csvexcelattachment)
         txt += '   Dataframe: \n' + str(df)
 
-    """if graphviz_mode:
-        if lang == 'Nederlands':
-          txt += '   Genereer een grafiek met graphviz in .dot \n'
-        else:
-          txt += '   Generate a graph with graphviz in .dot \n' """
-
     if len(txt) > 5000:
         txt = txt[:5000] + '...'
     if image or url != '':
